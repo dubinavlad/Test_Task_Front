@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>app</title>
+    <link rel="stylesheet" href="/dist/main.css">
+
+  </head>
+  <body>
+
+
+    <div id="app">
+  <b-table :items="items" :fields="fields">
+
+
+      <template slot="name" slot-scope="data">
+        <b-form-input
+          type="text"
+          v-model="data.item.name"
+        />
+      </template>
+      <template slot="rating" slot-scope="data">
+        <b-form-input
+          type="number"
+          v-model="data.item.rating"
+        />
+      </template>
+    <template slot="tag" slot-scope="data">
+        <b-form-input
+          type="text"
+          v-model="data.item.tag"
+        />
+      </template>
+    <template slot="wins" slot-scope="data">
+        <b-form-input
+          type="number"
+          v-model="data.item.wins"
+        />
+      </template>
+    <template slot="losses" slot-scope="data">
+        <b-form-input
+          type="number"
+          v-model="data.item.losses"
+        />
+      </template>
+     <template slot="last_match_time" slot-scope="data">
+        <b-form-input
+          type="number"
+          v-model="data.item.last_match_time"
+        />
+      </template>
+    <template slot="team_logo" scope="field">
+        <b-img center :src="field.value" alt="Center image" rounded="circle" width="100" height="100"></b-img>
+      </template>
+
+      <template slot="actions" slot-scope="data">
+        <b-button @click="save(data.item.id)" variant="success">
+          Save
+        </b-button>
+          <b-button @click="delete_element(data.item.id)" variant="danger">
+          Delete
+        </b-button>
+      </template>
+    </b-table>
+      <b-button id="show-btn" @click="showModal">Добавить команду</b-button>
+      <b-button @click="go_back" variant="success">
+          Предыдущая страница
+        </b-button>
+      <b-button @click="go_forward" variant="success">
+          Следующая страница
+        </b-button>
+
+      <template>
+        <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+      <div class="d-block text-center">
+        <h3>Hello From My Modal!</h3>
+      </div>
+         <form ref="form" >
+
+           <b-form-group label="Id"  label-for="id-input" invalid-feedback="Name is required"><b-form-input id="id-input" v-model="id_tmp" required></b-form-input></b-form-group>
+        <b-form-group label="Name" label-for="name-input"><b-form-input id="name-input" v-model="name_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Tag" label-for="tag-input"><b-form-input id="tag-input" v-model="tag_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Rating" label-for="rating-input"><b-form-input id="rating-input" v-model="rating_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Wins" label-for="wins-input"><b-form-input id="wins-input" v-model="wins_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Losses" label-for="losses-input"><b-form-input id="losses-input" v-model="losses_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Last match time" label-for="last_match_time-input"><b-form-input id="last_match_time-input" v-model="last_match_time_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Team Logo" label-for="logo-input"><b-form-input id="logo-input" v-model="logo_tmp" required></b-form-input></b-form-group>
+      </form>
+
+       <b-button class="mt-2" variant="outline-warning" block @click="checkForm">Save</b-button>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close</b-button>
+
+    </b-modal>
+      </template>
+ {{ items }}
+</div>
+
+
+
+
+
+
+
+    <script src="/dist/build.js"></script>
+
+  </body>
+
+</html>
