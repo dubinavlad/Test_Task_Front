@@ -99,7 +99,7 @@ new Vue({
         { key: "wins", sortable: true },
         { key: "losses", sortable: true },
         { key: "last_match_time", sortable: true },
-        { key: "team_logo", },
+        { key: "logo", },
         {key:'actions'}
 
       ]
@@ -139,7 +139,7 @@ new Vue({
       for(var i =0;i<this.items.length;i++){
         if(item==this.items[i]['id']){
 
-             axios.post('http://127.0.0.1:8000/delete/item',{'body':JSON.stringify(this.items[i]['id'])}).then((response) => {
+             axios.post('http://127.0.0.1:8000/api/delete/',{'body':JSON.stringify(this.items[i]['id'])}).then((response) => {
     console.log(response);
   })
   .catch((error) => {
@@ -156,7 +156,7 @@ new Vue({
       for(var i =0;i<this.items.length;i++){
         if(item==this.items[i]['id']){
 
-             axios.post('http://127.0.0.1:8000/save/item',{'body':JSON.stringify(this.items[i])}).then((response) => {
+             axios.post('http://127.0.0.1:8000/api/save/',{'body':JSON.stringify(this.items[i])}).then((response) => {
     console.log(response);
   })
   .catch((error) => {
