@@ -46,6 +46,7 @@
      <template slot="last_match_time" slot-scope="data">
         <b-form-input
           type="date"
+
           v-model="data.item.last_match_time"
         />
       </template>
@@ -54,7 +55,7 @@
       </template>
 
       <template slot="actions" slot-scope="data">
-        <b-button @click="save(data.item.id)" variant="success">
+        <b-button @click="update(data.item)" variant="success">
           Save
         </b-button>
           <b-button @click="delete_element(data.item.id)" variant="danger">
@@ -77,13 +78,13 @@
       </div>
          <form ref="form" >
 
-           <b-form-group label="Id"  label-for="id-input" invalid-feedback="Name is required"><b-form-input id="id-input" v-model="id_tmp" required></b-form-input></b-form-group>
-        <b-form-group label="Name" label-for="name-input"><b-form-input id="name-input" v-model="name_tmp" required></b-form-input></b-form-group>
-           <b-form-group label="Tag" label-for="tag-input"><b-form-input id="tag-input" v-model="tag_tmp" required></b-form-input></b-form-group>
-           <b-form-group label="Rating" label-for="rating-input"><b-form-input id="rating-input" v-model="rating_tmp" required></b-form-input></b-form-group>
-           <b-form-group label="Wins" label-for="wins-input"><b-form-input id="wins-input" v-model="wins_tmp" required></b-form-input></b-form-group>
-           <b-form-group label="Losses" label-for="losses-input"><b-form-input id="losses-input" v-model="losses_tmp" required></b-form-input></b-form-group>
-           <b-form-group label="Last match time" label-for="last_match_time-input"><b-form-input id="last_match_time-input" v-model="last_match_time_tmp" required></b-form-input></b-form-group>
+          
+        <b-form-group label="Name" label-for="name-input"><b-form-input id="name-input" type="text" v-model="name_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Tag" label-for="tag-input"><b-form-input id="tag-input" type="text" v-model="tag_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Rating" label-for="rating-input"><b-form-input type="number" id="rating-input" v-model="rating_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Wins" label-for="wins-input"><b-form-input id="wins-input" type="number"  v-model="wins_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Losses" label-for="losses-input"><b-form-input id="losses-input" type="number" v-model="losses_tmp" required></b-form-input></b-form-group>
+           <b-form-group label="Last match time" label-for="last_match_time-input"><b-form-input type="date" dateFormat="YYYY-MM-DD" id="last_match_time-input" v-model="last_match_time_tmp" required></b-form-input></b-form-group>
            <b-form-group label="Team Logo" label-for="logo-input"><b-form-input id="logo-input" v-model="logo_tmp" required></b-form-input></b-form-group>
       </form>
 
