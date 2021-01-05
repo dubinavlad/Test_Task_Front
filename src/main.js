@@ -74,11 +74,12 @@ new Vue({
     },
   data() {
     return {
-      url:'http://127.0.0.1:8000/api/team/',
+      url:'http://127.0.0.1:8000/api/teams/',
       next:null,
       previous:null,
 
       info: null,
+
        items: null,
        loading:null,
        userRow: null,
@@ -92,7 +93,7 @@ new Vue({
        logo_tmp:null,
        errors: [],
       fields: [
-      { key: "id" },
+      { key: "opendota_team_id" },
         { key: "name", sortable: true },
         { key: "tag", sortable: true },
         { key: "rating", sortable: true },
@@ -136,38 +137,51 @@ new Vue({
   },
   delete_element(item){
   console.log(item);
-      for(var i =0;i<this.items.length;i++){
-        if(item==this.items[i]['id']){
 
-             axios.post('http://127.0.0.1:8000/api/delete/',{'body':JSON.stringify(this.items[i]['id'])}).then((response) => {
+
+             axios.delete('http://127.0.0.1:8000/api/teams/'+item+'/').then((response) => {
     console.log(response);
+    document.location.reload();
   })
   .catch((error) => {
     console.log(error);
   });
-        }
-      }
-      document.location.reload();
-      console.log(this.item)
   },
 
-  save (item) {
+  update (item) {
       console.log(item);
-      for(var i =0;i<this.items.length;i++){
-        if(item==this.items[i]['id']){
 
-             axios.post('http://127.0.0.1:8000/api/save/',{'body':JSON.stringify(this.items[i])}).then((response) => {
+
+             axios.put('http://127.0.0.1:8000/api/teams/'+item.id+'/',item).then((response) => {
     console.log(response);
+       document.location.reload();
   })
   .catch((error) => {
     console.log(error);
   });
-        }
-      }
-      document.location.reload();
-      console.log(this.item)
 
     },
+    showModal() {
+        this.$refs['my-modal'].show()
+      },
+      hideModal() {
+        this.$refs['my-modal'].hide()
+      },
+     save (item) {
+      console.log(item);
+
+
+      axios.post('http://127.0.0.1:8000/api/teams/',item).then((response) => {
+
+    console.log(response);
+     this.hideModal()
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+    },
+
     change(id){
         for(var i = 0; i<this.items.length;i++){
             if (this.items[i].id != id) {
@@ -175,12 +189,7 @@ new Vue({
                 }
                 }
     },
-   showModal() {
-        this.$refs['my-modal'].show()
-      },
-      hideModal() {
-        this.$refs['my-modal'].hide()
-      },
+
       toggleModal() {
         // We pass the ID of the button that we want to return focus to
         // when the modal has hidden
@@ -190,16 +199,8 @@ new Vue({
 
 
       this.errors = [];
-       for(var i = 0; i<this.items.length;i++){
-            if (this.items[i].id == this.id) {
-                this.errors.push('Id занято.');
-                break;
-                }
-                }
-      if (!this.id_tmp) {
-        this.errors.push('Требуется указать Id.');
 
-      }
+
       if (!this.name_tmp) {
         this.errors.push('Требуется указать Name.');
       }
@@ -227,17 +228,19 @@ new Vue({
        else{
 
 
-        this.items.push({
-        "id":this.id_tmp,
+
+        this.save({
+
         "name":this.name_tmp,
          "tag":this.tag_tmp,
-        "rating":this.rating_tmp,
-        "wins":this.wins_tmp,
-         "losses":this.losses_tmp,
+        "rating":parseInt(this.rating_tmp,10),
+        "wins":parseInt(this.wins_tmp,10),
+         "losses":parseInt(this.losses_tmp,10),
         "last_match_time":this.last_match_time_tmp,
-        "team_logo":this.logo_tmp
+        "logo":this.logo_tmp,
+        "opendota_team_id":0
+
         })
-        save(this.id_tmp)
        }
 
 
